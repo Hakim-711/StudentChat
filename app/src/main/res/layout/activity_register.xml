@@ -85,8 +85,13 @@
                 android:id="@+id/firstname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:hint="@string/firstName"
+
+                tools:text="@tools:sample/first_names" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -105,6 +110,8 @@
                 android:id="@+id/lastname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/lastName"
+
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,8 +122,9 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:hint="Email Address"
             app:boxStrokeColor="@color/black"
+            android:hint="@string/email"
+
             app:boxStrokeWidth="0.5dp"
             app:hintTextColor="@android:color/darker_gray"
             app:startIconDrawable="@drawable/emailnew">
@@ -125,6 +133,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -144,10 +153,11 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone"
-                android:maxLength="9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone" />
+                android:hint="@string/phone"
+                android:inputType="phone"
+                android:maxLength="9" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
