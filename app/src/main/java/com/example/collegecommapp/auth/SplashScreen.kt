@@ -7,7 +7,14 @@ import android.os.Handler
 import android.os.Looper
 import com.example.collegecommapp.R
 
-class SplashScreen : AppCompatActivity() {
+class
+
+
+
+
+
+
+SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashscreen)

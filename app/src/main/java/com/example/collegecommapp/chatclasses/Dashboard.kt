@@ -25,20 +25,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tuchatapplication.R
-import com.example.tuchatapplication.adapters.GroupsAdapter
-import com.example.tuchatapplication.apputils.AppUtils
-import com.example.tuchatapplication.interfaces.Generalinterface
-import com.example.tuchatapplication.models.Group
-import com.example.tuchatapplication.models.GroupDisplay
-import com.example.tuchatapplication.viewmodels.ChattingViewModel
+import com.example.collegecommapp.R
+import com.example.collegecommapp.interfaces.Generalinterface
+import com.example.collegecommapp.models.Group
+import com.example.collegecommapp.models.GroupDisplay
+import com.example.collegecommapp.viewmodels.ChattingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import de.hdodenhof.circleimageview.CircleImageView
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -59,14 +54,11 @@ class Dashboard : Fragment(), View.OnClickListener {
     private lateinit var progress: ProgressBar
     private var groups: ArrayList<GroupDisplay> = ArrayList()
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var groupsAdapter: GroupsAdapter
     private var userId: String? = null
     private var filePath: Uri? = null
     private var imgUrl: String = ""
     private lateinit var pic: ImageView
-    private lateinit var firebaseStorage: FirebaseStorage
-    private lateinit var storageReference: StorageReference
-    private lateinit var appUtils: AppUtils
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,8 +76,7 @@ class Dashboard : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chattingViewModel = ViewModelProvider(requireActivity()).get(ChattingViewModel::class.java)
-        firebaseStorage = FirebaseStorage.getInstance()
-        appUtils = AppUtils(requireContext())
+
 
         var context = activity as Context
 
@@ -109,7 +100,6 @@ class Dashboard : Fragment(), View.OnClickListener {
 
         //layout managers
         linearLayoutManager = LinearLayoutManager(activity)
-        groupsAdapter = GroupsAdapter(context)
 
         //list data
         getListData()
@@ -117,7 +107,7 @@ class Dashboard : Fragment(), View.OnClickListener {
 
     private fun getListData() {
         chattingViewModel.getMemberGroups(userId!!).observe(viewLifecycleOwner, Observer {
-            if (it.isNotEmpty()){
+            if (it!!.isNotEmpty()){
                 groups.clear()
                 showRecycler(it)
             }
@@ -135,8 +125,6 @@ class Dashboard : Fragment(), View.OnClickListener {
         if (groups.size > 0){
             homeTxt.visibility = View.GONE
             recyclerView.visibility = View.VISIBLE
-            groupsAdapter.getData(groups)
-            recyclerView.adapter = groupsAdapter
             recyclerView.layoutManager = linearLayoutManager
         }
     }
@@ -150,7 +138,6 @@ class Dashboard : Fragment(), View.OnClickListener {
                 showChatRoomAdditionSheet()
             }
             R.id.relProfile -> {
-                generalinterface.goToProfile()
             }
         }
 
@@ -179,16 +166,7 @@ class Dashboard : Fragment(), View.OnClickListener {
     private fun sendToDb() {
         if (!filePath!!.equals(null)){
             Log.i(TAG, "sendToDb: " + "Sent" + filePath)
-            storageReference = firebaseStorage.reference.child("images/" + UUID.randomUUID().toString())
-            storageReference.putFile(filePath!!).addOnSuccessListener {
-                it.storage.downloadUrl.addOnCompleteListener {
-                    imgUrl = it.result.toString()
-                    if (imgUrl != ""){
-                        btnChart.isEnabled = true
-                        progress.visibility = View.GONE
-                    }
-                }
-            }
+
         }
         else{
             Toast.makeText(activity, "Not sent", Toast.LENGTH_LONG).show()
@@ -219,11 +197,13 @@ class Dashboard : Fragment(), View.OnClickListener {
             val intent: Intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
-            chatPic.launch(intent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                chatPic.launch(intent)
+            }
         }
 
         btnChart.setOnClickListener {
-            if (appUtils.checkWiFi()){
+
                 var time = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
                 var group: Group = Group()
@@ -250,10 +230,10 @@ class Dashboard : Fragment(), View.OnClickListener {
                     }
                 }
             }
-            else{
+
                 Toast.makeText(activity, "Connect to the internet for code generation", Toast.LENGTH_LONG).show()
-            }
-        }
+
+
     }
 
     private fun showBottomSheet() {

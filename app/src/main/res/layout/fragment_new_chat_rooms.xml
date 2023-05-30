@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/primary"
-    tools:context=".chatclasses.Dashboard">
-
+    android:orientation="vertical"
+    tools:context=".chatclasses.NewChatRooms">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -14,7 +13,7 @@
         android:paddingRight="10dp"
         >
         <RelativeLayout
-            android:id="@+id/relProfile"
+            android:id="@+id/relBackNewChat"
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_centerVertical="true"
@@ -23,7 +22,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/userchat"
+                android:src="@drawable/left"
                 android:scaleType="fitXY"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
@@ -33,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ChatRooms"
+            android:text="New ChatRooms"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:fontFamily="@font/robotobold"
@@ -42,7 +41,7 @@
             />
 
         <RelativeLayout
-            android:id="@+id/relMore"
+            android:id="@+id/relSearch"
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_alignParentEnd="true"
@@ -52,7 +51,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_baseline_more_vert_24"
+                android:src="@drawable/searchchat"
                 android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
@@ -68,35 +67,22 @@
         android:layout_marginTop="8dp"
         >
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerGroups"
+            android:id="@+id/recyclerNewChatRoom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            tools:listitem="@layout/group_item"
+            tools:listitem="@layout/new_chat_item"
             />
 
         <TextView
-            android:id="@+id/txtHome"
+            android:id="@+id/txtAvailable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add ChatRoom"
+            android:text="No Available ChatRoom"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:fontFamily="@font/robotobold"
             android:textSize="20sp"
-            />
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatDashboard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:tint="#FFFFFF"
-            android:backgroundTint="@color/primary"
-            android:src="@drawable/ic_baseline_add_24"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
             />
 
     </RelativeLayout>

@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.tuchatapplication.R
-import com.example.tuchatapplication.interfaces.Generalinterface
+import com.example.collegecommapp.interfaces.Generalinterface
+import com.example.collegecommapp.R
 
 class Profile : Fragment(), View.OnClickListener {
     private lateinit var generalinterface: Generalinterface

@@ -35,6 +35,7 @@ import com.example.collegecommapp.sqlitedatabase.queries.ChatEntries
 import com.example.collegecommapp.sqlitedatabase.queries.ChatEntries.Companion.CHAT_SQL_ENTRIES
 import com.example.collegecommapp.sqlitedatabase.tables.ChatsTable
 import com.example.collegecommapp.viewmodels.ChattingViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -59,6 +60,7 @@ class ChatRoom : Fragment(), View.OnClickListener {
     private lateinit var generalinterface: Generalinterface
     private var filePath: Uri? = null
     private var imgUrl: String? = null
+    var chatAdapter = ChatAdapter(activity as Context)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -133,15 +135,8 @@ class ChatRoom : Fragment(), View.OnClickListener {
     private fun sendToDb() {
         if (!filePath!!.equals(null)){
             Log.i(TAG, "sendToDb: " + "Sent" + filePath)
-            storageReference = firebaseStorage.reference.child("images/" + UUID.randomUUID().toString())
-            storageReference.putFile(filePath!!).addOnSuccessListener {
-                it.storage.downloadUrl.addOnCompleteListener {
-                    imgUrl = it.result.toString()
-                    if (imgUrl != ""){
-                        send.isEnabled = true
-                    }
-                }
-            }
+
+
         }
         else{
             Toast.makeText(activity, "Not sent", Toast.LENGTH_LONG).show()
@@ -190,24 +185,12 @@ class ChatRoom : Fragment(), View.OnClickListener {
 
     override fun onClick(p0: View?) {
         when(p0!!.id){
-            R.id.attach -> {
-                if (appUtils.checkWiFi()){
-                    send.isEnabled = false
-                    val intent: Intent = Intent()
-                    intent.type = "image/*"
-                    intent.action = Intent.ACTION_GET_CONTENT
-                    chatPic.launch(intent)
-                }
-                else{
-                    Toast.makeText(activity, "Connect to the internet", Toast.LENGTH_LONG).show()
-                }
 
-            }
             R.id.send -> {
                 sendChat()
             }
             R.id.relBackChats -> {
-                generalinterface.goToMainPage()
+
             }
             R.id.relBot -> {
                 showBottomSheet()
@@ -235,7 +218,7 @@ class ChatRoom : Fragment(), View.OnClickListener {
 
             val db = UsersSqliteDatabaseHelper(requireContext()).writableDatabase
             val values = ContentValues()
-            values.put(CHAT_SQL_ENTRIES., chatId)
+            values.put(ChatsTable.COLUMN_NAME_USERID, chatId)
             values.put(ChatsTable.COLUMN_NAME_USERID, userId)
             values.put(ChatsTable.COLUMN_NAME_GROUPID, groupId)
             values.put(ChatsTable.COLUMN_NAME_TIME, time)
@@ -280,7 +263,7 @@ class ChatRoom : Fragment(), View.OnClickListener {
             var res = chattingViewModel.leaveGroup(userId!!, groupId!!)
 
             if (res > 0){
-                generalinterface.goToMainPage()
+
             }
             else{
                 Log.i(TAG, "leaveGroup: Left")

@@ -15,12 +15,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tuchatapplication.R
-import com.example.tuchatapplication.adapters.ChatRoomsAdapter
-import com.example.tuchatapplication.interfaces.Generalinterface
-import com.example.tuchatapplication.models.Group
-import com.example.tuchatapplication.models.GroupDisplay
-import com.example.tuchatapplication.viewmodels.ChattingViewModel
+import com.example.collegecommapp.R
+import com.example.collegecommapp.adapters.ChatRoomsAdapter
+import com.example.collegecommapp.interfaces.Generalinterface
+import com.example.collegecommapp.models.Group
+import com.example.collegecommapp.models.GroupDisplay
+import com.example.collegecommapp.viewmodels.ChattingViewModel
 
 class NewChatRooms : Fragment(), View.OnClickListener {
     private val TAG = "NewChatRooms"
@@ -67,7 +67,7 @@ class NewChatRooms : Fragment(), View.OnClickListener {
         userId = sharedPreferences.getString(getString(R.string.id), "")
 
         chattingViewModel.getGroups(userId!!).observe(viewLifecycleOwner, Observer {
-            if (it.size > 0){
+            if (it!!.size > 0){
                 showRecycler(it)
             }
             else{
