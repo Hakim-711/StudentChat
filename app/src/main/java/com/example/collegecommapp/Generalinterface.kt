@@ -11,5 +11,6 @@ interface Generalinterface {
     fun goToNewChatRooms()
     fun goToSearch()
     fun goToMainPage()
+    fun goToProfile()
 
 }

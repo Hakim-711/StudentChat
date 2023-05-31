@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collegecommapp.R
 import com.example.collegecommapp.models.Chat
+import com.squareup.picasso.OkHttp3Downloader
+import com.squareup.picasso.Picasso
 
 open class ChatAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var lst: ArrayList<Chat> = ArrayList()
@@ -34,7 +36,12 @@ open class ChatAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
             sendViewModel.content.text = chat.message
             sendViewModel.time.text = chat.time
             sendViewModel.img.visibility = View.GONE
-
+            if (chat.img != ""){
+                sendViewModel.img.visibility = View.VISIBLE
+                var picasso: Picasso.Builder = Picasso.Builder(context)
+                picasso.downloader(OkHttp3Downloader(context))
+                picasso.build().load(chat.img).into(sendViewModel.img)
+            }
         }
         else{
             var receiveViewModel: ReceiveViewModel = holder as ReceiveViewModel
@@ -42,7 +49,12 @@ open class ChatAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.
             receiveViewModel.recContent.text = chat.message
             receiveViewModel.recTime.text = chat.time
             receiveViewModel.img.visibility = View.GONE
-
+            if (chat.img != ""){
+                receiveViewModel.img.visibility = View.VISIBLE
+                var picasso: Picasso.Builder = Picasso.Builder(context)
+                picasso.downloader(OkHttp3Downloader(context))
+                picasso.build().load(chat.img).into(receiveViewModel.img)
+            }
         }
     }
 

@@ -43,14 +43,14 @@ import kotlin.random.Random
 class Dashboard : Fragment(), View.OnClickListener {
     private val TAG = "Dashboard"
     private lateinit var more: RelativeLayout
-    private lateinit var floatingActionButton: FloatingActionButton
+    private lateinit var floatingActionButton: ImageButton
     private lateinit var homeTxt: TextView
     private lateinit var profile: RelativeLayout
     private lateinit var generalinterface: Generalinterface
     private lateinit var recyclerView: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var chattingViewModel: ChattingViewModel
-    private lateinit var btnChart: MaterialButton
+     private lateinit var btnChart: Button
     private lateinit var progress: ProgressBar
     private var groups: ArrayList<GroupDisplay> = ArrayList()
     private lateinit var sharedPreferences: SharedPreferences
@@ -180,9 +180,9 @@ class Dashboard : Fragment(), View.OnClickListener {
         bottomSheetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         bottomSheetDialog.setContentView(R.layout.newchatroom_bottom_sheet)
 
-        var name: TextInputEditText = bottomSheetDialog.findViewById<TextInputEditText>(R.id.chatName)!!
-        var desc: TextInputEditText = bottomSheetDialog.findViewById<TextInputEditText>(R.id.chatDescription)!!
-        var cap: TextInputEditText = bottomSheetDialog.findViewById<TextInputEditText>(R.id.chatCapacity)!!
+        var name: EditText = bottomSheetDialog.findViewById<TextInputEditText>(R.id.chatName)!!
+        var desc: EditText = bottomSheetDialog.findViewById<TextInputEditText>(R.id.chatDescription)!!
+        var cap: EditText = bottomSheetDialog.findViewById<TextInputEditText>(R.id.chatCapacity)!!
         btnChart = bottomSheetDialog.findViewById<MaterialButton>(R.id.btnChat)!!
         progress = bottomSheetDialog.findViewById<ProgressBar>(R.id.progressNew)!!
         var picClick: TextView = bottomSheetDialog.findViewById<TextView>(R.id.chatPic)!!

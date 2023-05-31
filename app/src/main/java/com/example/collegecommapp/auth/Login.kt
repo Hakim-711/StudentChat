@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -20,9 +22,9 @@ import com.google.android.material.textfield.TextInputEditText
 class Login : AppCompatActivity(), View.OnClickListener {
     private val TAG = "LoginUser"
     private lateinit var register: TextView
-    private lateinit var email: TextInputEditText
-    private lateinit var password: TextInputEditText
-    private lateinit var btn: MaterialButton
+    private lateinit var email: EditText
+    private lateinit var password: EditText
+    private lateinit var btn: Button
     private lateinit var registerActivityViewModel: RegisterActivityViewModel
     private var sharedPreferences: SharedPreferences? = null
     private lateinit var back: ImageView

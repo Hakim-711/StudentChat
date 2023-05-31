@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.collegecommapp.R
 import com.example.collegecommapp.interfaces.Generalinterface
 import com.example.collegecommapp.models.GroupDisplay
+import com.squareup.picasso.OkHttp3Downloader
+import com.squareup.picasso.Picasso
 
 open class GroupsAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
     private var lst: ArrayList<GroupDisplay> = ArrayList()
@@ -25,7 +27,11 @@ open class GroupsAdapter(var context: Context): RecyclerView.Adapter<RecyclerVie
         myViewHolder.message.text = lst[position].message ?: ""
         myViewHolder.time.text = lst[position].time
         myViewHolder.total.text = lst[position].total
-
+        if (lst[position].group_image != ""){
+            var picasso: Picasso.Builder = Picasso.Builder(context)
+            picasso.downloader(OkHttp3Downloader(context))
+            picasso.build().load(lst[position].group_image).into(myViewHolder.image)
+        }
 
         myViewHolder.relCont.setOnClickListener {
             generalinterface.goToChatPage(lst[position].group_id!!)

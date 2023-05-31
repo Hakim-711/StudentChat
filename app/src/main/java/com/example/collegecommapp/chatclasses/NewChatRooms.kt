@@ -38,7 +38,7 @@ class NewChatRooms : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        chattingViewModel = ViewModelProvider(this).get(ChattingViewModel::class.java)
+        chattingViewModel = ViewModelProvider(this)[ChattingViewModel::class.java]
     }
 
     override fun onCreateView(
