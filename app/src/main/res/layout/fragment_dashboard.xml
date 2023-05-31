@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/primary"
     tools:context=".chatclasses.Dashboard">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="56dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         >
@@ -18,7 +17,6 @@
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/back_icons"
             >
             <ImageView
                 android:layout_width="20dp"
@@ -37,7 +35,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:fontFamily="@font/robotobold"
-            android:textColor="@color/white"
+            android:textColor="@android:color/holo_orange_light"
             android:textSize="16sp"
             />
 
@@ -64,16 +62,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/recycler_back"
         android:layout_marginTop="8dp"
         >
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerGroups"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            tools:listitem="@layout/group_item"
-            />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            tools:listitem="@layout/group_item" />
 
         <TextView
             android:id="@+id/txtHome"
@@ -87,17 +87,16 @@
             />
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/floatDashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:tint="#FFFFFF"
-            android:backgroundTint="@color/primary"
+            android:background="@drawable/round_button"
             android:src="@drawable/ic_baseline_add_24"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            />
+            android:scaleType="center"/>
 
     </RelativeLayout>
 

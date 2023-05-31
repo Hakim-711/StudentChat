@@ -88,71 +88,48 @@
                         android:fontFamily="@font/robotomedium"
                         />
                 </RelativeLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Chatroom Title"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0.5dp"
-                    app:hintTextColor="@android:color/darker_gray"
-                    >
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/chatName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:hint="Chatroom Title"
                         android:inputType="text" />
 
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Chatroom Description"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0.5dp"
-                    app:hintTextColor="@android:color/darker_gray"
-                    >
-
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/chatDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:hint="Chatroom Description"
                         android:inputType="text" />
 
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Chatroom Maximum Capacity"
-                    app:boxStrokeColor="@color/black"
-                    app:boxStrokeWidth="0.5dp"
-                    app:hintTextColor="@android:color/darker_gray"
-                    >
-
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/chatCapacity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:hint="Chatroom Maximum Capacity"
                         android:inputType="number" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <Button
+                        android:id="@+id/btnChat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="@color/primary"
+                        android:text="Add"
+                        android:padding="15dp"
+                        />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnChat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="@color/primary"
-                    android:text="Add"
-                    android:padding="15dp"
-                    />
+                </LinearLayout>
 
             </LinearLayout>
             <RelativeLayout

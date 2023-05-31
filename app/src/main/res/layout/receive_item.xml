@@ -20,7 +20,7 @@
                 android:id="@+id/recName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lumbert"
+                android:text="Hakim"
                 android:fontFamily="@font/robotoregular"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp"
@@ -29,7 +29,7 @@
                 android:id="@+id/imgReceiveMessage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/person2"
+                android:src="@drawable/userchat"
                 android:scaleType="fitXY"
                 android:layout_marginTop="5dp"
                 />

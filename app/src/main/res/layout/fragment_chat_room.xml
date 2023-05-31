@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="56dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:background="@color/white"
@@ -46,7 +46,7 @@
                 android:id="@+id/txtTitleChat"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:text="University of Nairobi"
+                android:text="PSUT"
                 android:fontFamily="@font/robotobold"
                 android:textColor="@color/primary"
                 android:textSize="16sp"
@@ -60,7 +60,7 @@
                     android:id="@+id/txtDesc"
                     android:layout_width="280dp"
                     android:layout_height="wrap_content"
-                    android:text="Hillary"
+                    android:text="Hakim"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:fontFamily="@font/robotoregular"
@@ -144,7 +144,7 @@
                         android:id="@+id/imgChat"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/person2"
+                        android:src="@drawable/userchat"
                         android:scaleType="fitXY"
                         android:layout_marginBottom="5dp"
                         />

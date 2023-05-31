@@ -17,11 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             >
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/id"
-                />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -39,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Code Verification"
-                    android:textColor="@color/primary"
+                    android:textColor="@android:color/holo_orange_light"
                     android:fontFamily="@font/robotobold"
                     android:textSize="20sp"
                     android:textAlignment="center"
@@ -84,7 +80,7 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/robotobold"
                     android:maxLength="1"
-                    android:backgroundTint="@android:color/darker_gray"
+                    android:backgroundTint="@color/black"
                     />
                 <EditText
                     android:id="@+id/editTwo"
@@ -94,7 +90,7 @@
                     android:textStyle="bold"
                     android:maxLength="1"
                     android:fontFamily="@font/robotobold"
-                    android:backgroundTint="@android:color/darker_gray"
+                    android:backgroundTint="@color/black"
                     />
                 <EditText
                     android:id="@+id/editThree"
@@ -103,7 +99,7 @@
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:fontFamily="@font/robotobold"
-                    android:backgroundTint="@android:color/darker_gray"
+                    android:backgroundTint="@color/black"
                     />
                 <EditText
                     android:id="@+id/editFour"
@@ -113,7 +109,7 @@
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:fontFamily="@font/robotobold"
-                    android:backgroundTint="@android:color/darker_gray"
+                    android:backgroundTint="@color/black"
                     />
                 <EditText
                     android:id="@+id/editFive"
@@ -123,7 +119,7 @@
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:fontFamily="@font/robotobold"
-                    android:backgroundTint="@android:color/darker_gray"
+                    android:backgroundTint="@color/black"
                     />
                 <EditText
                     android:id="@+id/editSix"
@@ -133,7 +129,7 @@
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:fontFamily="@font/robotobold"
-                    android:backgroundTint="@android:color/darker_gray"
+                    android:backgroundTint="@color/black"
                     />
 
             </LinearLayout>
@@ -157,21 +153,23 @@
                 android:layout_height="wrap_content"
                 android:text="Resend Code"
                 android:fontFamily="@font/robotobold"
-                android:textColor="@color/primary"
+                android:textColor="@color/design_default_color_error"
                 />
 
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/btnCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Verify"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginTop="15dp"
             android:padding="13dp"
             android:fontFamily="@font/robotobold"
+            android:background="@android:color/holo_orange_light"
+            android:textColor="@color/white"
             />
 
     </LinearLayout>

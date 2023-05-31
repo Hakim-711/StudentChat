@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@android:color/holo_orange_light"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -38,7 +38,7 @@
                     android:src="@drawable/ic_baseline_login_24"
                     android:layout_gravity="center_vertical"
                     android:scaleType="fitXY"
-                    app:tint="@color/primary" />
+                    app:tint="@color/purple_700" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

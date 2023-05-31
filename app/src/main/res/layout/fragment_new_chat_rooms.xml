@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@android:color/holo_orange_light"
     android:orientation="vertical"
     tools:context=".chatclasses.NewChatRooms">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="56dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         >
