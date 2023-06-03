@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.collegecommapp.R
 import com.example.collegecommapp.adapters.ChatRoomsAdapter
 import com.example.collegecommapp.interfaces.Generalinterface
+import com.example.collegecommapp.models.Chat
 import com.example.collegecommapp.models.Group
 import com.example.collegecommapp.models.GroupDisplay
 import com.example.collegecommapp.viewmodels.ChattingViewModel
@@ -38,7 +39,7 @@ class NewChatRooms : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        chattingViewModel = ViewModelProvider(this)[ChattingViewModel::class.java]
+        chattingViewModel = ViewModelProvider(this).get(ChattingViewModel::class.java)
     }
 
     override fun onCreateView(

@@ -16,8 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.collegecommapp.MainActivity
 import com.example.collegecommapp.R
 import com.example.collegecommapp.viewmodels.RegisterActivityViewModel
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
+
 
 class Login : AppCompatActivity(), View.OnClickListener {
     private val TAG = "LoginUser"

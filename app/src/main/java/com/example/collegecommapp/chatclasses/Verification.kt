@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -31,7 +32,7 @@ class Verification : Fragment(), View.OnClickListener {
     private lateinit var numFour: EditText
     private lateinit var numFive: EditText
     private lateinit var numSix: EditText
-    private lateinit var btn: MaterialButton
+    private lateinit var btn: Button
     private lateinit var resend: TextView
     private lateinit var chattingViewModel: ChattingViewModel
     private var code: String? = null
@@ -191,7 +192,7 @@ class Verification : Fragment(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when(p0!!.id){
             R.id.btnCode -> {
-                checkDetails()
+                generalinterface.goToChatPage(groupId!!)
             }
             R.id.resend -> {
                 resendCode()

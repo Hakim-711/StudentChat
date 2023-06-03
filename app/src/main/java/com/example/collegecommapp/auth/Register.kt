@@ -14,18 +14,18 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.collegecommapp.MainActivity
 import com.example.collegecommapp.R
+import com.example.collegecommapp.models.User
 import com.example.collegecommapp.viewmodels.RegisterActivityViewModel
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
+import java.util.*
 
 class Register : AppCompatActivity(), View.OnClickListener {
     private val TAG = "Register"
-    private lateinit var firstName: TextInputEditText
-    private lateinit var lastName: TextInputEditText
-    private lateinit var email: TextInputEditText
-    private lateinit var password: TextInputEditText
-    private lateinit var phone: TextInputEditText
-    private lateinit var btn: MaterialButton
+    private lateinit var firstName: EditText
+    private lateinit var lastName: EditText
+    private lateinit var email: EditText
+    private lateinit var password: EditText
+    private lateinit var phone: EditText
+    private lateinit var btn: Button
     private lateinit var back: ImageView
     private lateinit var registerActivityViewModel: RegisterActivityViewModel
     private lateinit var sharedPreferences: SharedPreferences
@@ -91,6 +91,38 @@ class Register : AppCompatActivity(), View.OnClickListener {
         else if (pass.length < 8){
             password.error = "Password Should have eight or more characters"
             password.requestFocus()
+        }
+        else{
+            btn.isEnabled = false
+            var user: User = User()
+            user.firstName = first
+            user.lastName = last
+            user.email = em
+            user.password = pass
+            user.phone = pn
+            user.userId = Random().nextInt(100).toString()
+
+            if (user != null){
+                val response = registerActivityViewModel.createAccount(user)
+
+                if (response != null){
+                    btn.isEnabled = true
+                    if (response >= 0){
+                        goToLogin()
+                        Toast.makeText(this, "Registration Successful", Toast.LENGTH_LONG).show()
+                    }
+                    else{
+                        Toast.makeText(this, "Registration Not Successful", Toast.LENGTH_LONG).show()
+                    }
+                }
+                else{
+                    btn.isEnabled = true
+                    Toast.makeText(this, "Null Returned", Toast.LENGTH_LONG).show()
+                }
+            }
+            else{
+                Toast.makeText(this, "No User Details", Toast.LENGTH_LONG).show()
+            }
         }
     }
 

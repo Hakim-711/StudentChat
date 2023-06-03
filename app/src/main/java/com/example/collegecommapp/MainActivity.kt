@@ -1,3 +1,4 @@
+
 package com.example.collegecommapp
 
 import android.content.ContentValues
@@ -5,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -21,18 +21,11 @@ import com.example.collegecommapp.sqlitedatabase.helpers.UsersSqliteDatabaseHelp
 import com.example.collegecommapp.sqlitedatabase.tables.GroupTable
 import com.example.collegecommapp.sqlitedatabase.tables.UserTable
 import com.example.collegecommapp.viewmodels.ChattingViewModel
-import com.google.firebase.FirebaseException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
-import com.google.firebase.auth.PhoneAuthProvider
-import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity(), Generalinterface {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
-    private val TAG = "MainActivity"
-    private lateinit var mCallBack: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var chattingViewModel: ChattingViewModel
     private lateinit var appUtils: AppUtils
@@ -57,29 +50,7 @@ class MainActivity : AppCompatActivity(), Generalinterface {
         navController.navigate(R.id.dashboard)
     }
 
-    //get phone details
     override fun getPhoneDetails(phone: String): String {
-        var resultCode: String? = null
-
-        mCallBack = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
-            override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-                var code = p0.smsCode
-
-                if (code != null){
-                    resultCode = code
-                }
-            }
-
-            override fun onVerificationFailed(p0: FirebaseException) {
-                Log.i(TAG, "onVerificationFailed: $p0")
-
-            }
-
-            override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
-                Log.i(TAG, "onCodeSent: $p0")
-
-            }
-        }
         val db = usersSqliteDatabaseHelper.readableDatabase
 
         val projection = arrayOf(
@@ -87,7 +58,6 @@ class MainActivity : AppCompatActivity(), Generalinterface {
             UserTable.COLUMN_NAME_LAST_NAME,
             UserTable.COLUMN_NAME_EMAIL
         )
-
 
         val selection = "${UserTable.COLUMN_NAME_PHONE} = ?"
         val selectionArgs = arrayOf(phone)
@@ -117,12 +87,7 @@ class MainActivity : AppCompatActivity(), Generalinterface {
 
         cursor.close()
 
-
-
-
-
-
-        return resultCode!!
+        return details
     }
 
     override fun goToProfile() {
@@ -139,7 +104,7 @@ class MainActivity : AppCompatActivity(), Generalinterface {
 
     override fun logOut() {
         sharedPreferences = this.getSharedPreferences(getString(R.string.User), MODE_PRIVATE)
-        var editor: SharedPreferences.Editor = sharedPreferences!!.edit()
+        var editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()
         startActivity(Intent(this, Login::class.java))
@@ -147,44 +112,29 @@ class MainActivity : AppCompatActivity(), Generalinterface {
     }
 
     override fun addChatRoom(group: Group) {
-        if (appUtils.checkWiFi()){
-            var sharedPreferences2 = getSharedPreferences("USER", Context.MODE_PRIVATE)
-            var userPhone = sharedPreferences2.getString(getString(R.string.phone), "")
+        if (appUtils.checkWiFi()) {
+            val sharedPreferences2 = getSharedPreferences("USER", Context.MODE_PRIVATE)
+            val userPhone = sharedPreferences2.getString(getString(R.string.phone), "")
 
-            mCallBack = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
-                override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-                    var code = p0.smsCode
+            // Replace this block with your custom verification method
+            // For example, you can call a function named "performVerification" passing the userPhone
+            val code = 111333
 
-                    if (code != null){
-                        var newSharedPreferences: SharedPreferences = getSharedPreferences("CODE", MODE_PRIVATE)
-                        var editor2: SharedPreferences.Editor = newSharedPreferences.edit()
-                        editor2.putString("NUMBER", code)
-                        editor2.putString("GroupId", group.group_id)
-                        editor2.apply()
+            if (code != null) {
+                val newSharedPreferences: SharedPreferences = getSharedPreferences("CODE", MODE_PRIVATE)
+                val editor2: SharedPreferences.Editor = newSharedPreferences.edit()
+                editor2.putString("NUMBER", code.toString())
+                editor2.putString("GroupId", group.group_id)
+                editor2.apply()
 
-                        navController.navigate(R.id.verification)
-                    }
-
-                }
-
-                override fun onVerificationFailed(p0: FirebaseException) {
-                    Log.i(TAG, "onVerificationFailed: $p0")
-
-                }
-
-                override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
-                    Log.i(TAG, "onCodeSent: $p0")
-
-                }
+                navController.navigate(R.id.verification)
             }
-
-
-        }
-        else{
+        } else {
             Toast.makeText(this, "Connect to the internet for code generation", Toast.LENGTH_LONG).show()
         }
-
     }
+
+
 
     override fun goToMainPage() {
         navController.navigate(R.id.dashboard)

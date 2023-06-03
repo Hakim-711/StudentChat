@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -11,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.collegecommapp.R
 import com.example.collegecommapp.interfaces.Generalinterface
 import com.example.collegecommapp.models.Group
-import com.squareup.picasso.OkHttp3Downloader
-import com.squareup.picasso.Picasso
+
 
 
 open class ChatRoomsAdapter(var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -24,21 +24,17 @@ open class ChatRoomsAdapter(var context: Context): RecyclerView.Adapter<Recycler
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var myViewHolder: MyViewHolder = holder as MyViewHolder
-        myViewHolder.title.text = groupList!![position].group_name
-        myViewHolder.message.text = groupList!![position].group_description
-        if (groupList[position].group_image != ""){
-            var picasso: Picasso.Builder = Picasso.Builder(context)
-            picasso.downloader(OkHttp3Downloader(context))
-            picasso.build().load(groupList[position].group_image).into(myViewHolder.image)
-        }
+        myViewHolder.title.text = groupList[position].group_name
+        myViewHolder.message.text = groupList[position].group_description
+
 
         myViewHolder.join.setOnClickListener {
-            generalinterface.addChatRoom(groupList!![position])
+            generalinterface.addChatRoom(groupList[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return groupList!!.size
+        return groupList.size
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -55,7 +51,7 @@ open class ChatRoomsAdapter(var context: Context): RecyclerView.Adapter<Recycler
 
     fun getData(lst: ArrayList<Group>){
         for (i in lst){
-            groupList!!.add(i)
+            groupList.add(i)
             notifyDataSetChanged()
         }
     }

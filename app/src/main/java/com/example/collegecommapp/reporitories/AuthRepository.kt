@@ -1,12 +1,8 @@
 package com.example.collegecommapp.reporitories
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.Application
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import android.util.Log
 import com.example.collegecommapp.models.User
 import com.example.collegecommapp.sqlitedatabase.helpers.UsersSqliteDatabaseHelper
 import com.example.collegecommapp.sqlitedatabase.tables.UserTable

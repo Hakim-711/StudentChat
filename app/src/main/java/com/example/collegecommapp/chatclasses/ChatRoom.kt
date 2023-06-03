@@ -1,10 +1,8 @@
 package com.example.collegecommapp.chatclasses
 
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.database.sqlite.SQLiteDatabase
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -12,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,24 +20,22 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collegecommapp.R
 import com.example.collegecommapp.adapters.ChatAdapter
+import com.example.collegecommapp.apputils.AppUtils
 import com.example.collegecommapp.interfaces.Generalinterface
 import com.example.collegecommapp.models.Chat
-import com.example.collegecommapp.sqlitedatabase.helpers.UsersSqliteDatabaseHelper
-import com.example.collegecommapp.sqlitedatabase.queries.ChatEntries
-import com.example.collegecommapp.sqlitedatabase.queries.ChatEntries.Companion.CHAT_SQL_ENTRIES
-import com.example.collegecommapp.sqlitedatabase.tables.ChatsTable
 import com.example.collegecommapp.viewmodels.ChattingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class ChatRoom : Fragment(), View.OnClickListener {
@@ -50,6 +47,7 @@ class ChatRoom : Fragment(), View.OnClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var desc: TextView
     private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var chatAdapter: ChatAdapter
     private lateinit var back: RelativeLayout
     private lateinit var title: TextView
     private lateinit var imgChat: ImageView
@@ -59,8 +57,9 @@ class ChatRoom : Fragment(), View.OnClickListener {
     private var chatList: ArrayList<Chat> = ArrayList()
     private lateinit var generalinterface: Generalinterface
     private var filePath: Uri? = null
+
     private var imgUrl: String? = null
-    var chatAdapter = ChatAdapter(activity as Context)
+    private lateinit var appUtils: AppUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +77,7 @@ class ChatRoom : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chattingViewModel = ViewModelProvider(requireActivity()).get(ChattingViewModel::class.java)
-
+        appUtils = AppUtils(requireContext())
 
         recyclerView = view.findViewById(R.id.recyclerChats)
         chat = view.findViewById(R.id.editChat)
@@ -92,7 +91,7 @@ class ChatRoom : Fragment(), View.OnClickListener {
         imgChat.visibility = View.GONE
 
         linearLayoutManager = LinearLayoutManager(activity)
-        var chatAdapter = ChatAdapter(activity as Context)
+        chatAdapter = ChatAdapter(activity as Context)
 
         attach.setOnClickListener(this)
         send.setOnClickListener(this)
@@ -135,7 +134,6 @@ class ChatRoom : Fragment(), View.OnClickListener {
     private fun sendToDb() {
         if (!filePath!!.equals(null)){
             Log.i(TAG, "sendToDb: " + "Sent" + filePath)
-
 
         }
         else{
@@ -183,14 +181,27 @@ class ChatRoom : Fragment(), View.OnClickListener {
         recyclerView.scrollToPosition(chatList.size - 1)
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onClick(p0: View?) {
         when(p0!!.id){
+            R.id.attach -> {
+                if (appUtils.checkWiFi()){
+                    send.isEnabled = false
+                    val intent: Intent = Intent()
+                    intent.type = "image/*"
+                    intent.action = Intent.ACTION_GET_CONTENT
+                    chatPic.launch(intent)
+                }
+                else{
+                    Toast.makeText(activity, "Connect to the internet", Toast.LENGTH_LONG).show()
+                }
 
+            }
             R.id.send -> {
                 sendChat()
             }
             R.id.relBackChats -> {
-
+                generalinterface.goToMainPage()
             }
             R.id.relBot -> {
                 showBottomSheet()
@@ -216,20 +227,8 @@ class ChatRoom : Fragment(), View.OnClickListener {
             nChat.chatId = chatId
             nChat.img = imgUrl ?: ""
 
-            val db = UsersSqliteDatabaseHelper(requireContext()).writableDatabase
-            val values = ContentValues()
-            values.put(ChatsTable.COLUMN_NAME_USERID, chatId)
-            values.put(ChatsTable.COLUMN_NAME_USERID, userId)
-            values.put(ChatsTable.COLUMN_NAME_GROUPID, groupId)
-            values.put(ChatsTable.COLUMN_NAME_TIME, time)
-            values.put(ChatsTable.COLUMN_NAME_DATE, date)
-            values.put(ChatsTable.COLUMN_NAME_MESSAGE, message)
-            values.put(ChatsTable.COLUMN_NAME_IMAGE, imgUrl)
-
-            val success = db.insert(ChatEntries.CHAT_SQL_ENTRIES, null, values)
-            db.close()
-
-            if (success >= 0){
+            var response = chattingViewModel.addChat(nChat)
+            if (response >= 0){
                 Log.i(TAG, "sendChat: Added")
                 chatList.add(nChat)
                 if (chatList.size > 0){
@@ -241,6 +240,7 @@ class ChatRoom : Fragment(), View.OnClickListener {
                 Log.i(TAG, "sendChat: Not Added")
             }
         }
+
     }
 
     private fun showBottomSheet() {
@@ -263,7 +263,7 @@ class ChatRoom : Fragment(), View.OnClickListener {
             var res = chattingViewModel.leaveGroup(userId!!, groupId!!)
 
             if (res > 0){
-
+                generalinterface.goToMainPage()
             }
             else{
                 Log.i(TAG, "leaveGroup: Left")

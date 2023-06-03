@@ -138,6 +138,7 @@ class Dashboard : Fragment(), View.OnClickListener {
                 showChatRoomAdditionSheet()
             }
             R.id.relProfile -> {
+                generalinterface.goToProfile()
             }
         }
 
@@ -180,10 +181,10 @@ class Dashboard : Fragment(), View.OnClickListener {
         bottomSheetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         bottomSheetDialog.setContentView(R.layout.newchatroom_bottom_sheet)
 
-        var name: EditText = bottomSheetDialog.findViewById<TextInputEditText>(R.id.chatName)!!
-        var desc: EditText = bottomSheetDialog.findViewById<TextInputEditText>(R.id.chatDescription)!!
-        var cap: EditText = bottomSheetDialog.findViewById<TextInputEditText>(R.id.chatCapacity)!!
-        btnChart = bottomSheetDialog.findViewById<MaterialButton>(R.id.btnChat)!!
+        var name: TextView = bottomSheetDialog.findViewById<TextView>(R.id.chatName)!!
+        var desc: TextView = bottomSheetDialog.findViewById<TextView>(R.id.chatDescription)!!
+        var cap: EditText = bottomSheetDialog.findViewById<EditText>(R.id.chatCapacity)!!
+        btnChart = bottomSheetDialog.findViewById<Button>(R.id.btnChat)!!
         progress = bottomSheetDialog.findViewById<ProgressBar>(R.id.progressNew)!!
         var picClick: TextView = bottomSheetDialog.findViewById<TextView>(R.id.chatPic)!!
         pic = bottomSheetDialog.findViewById<ImageView>(R.id.imgChatRoomPic)!!
@@ -248,7 +249,6 @@ class Dashboard : Fragment(), View.OnClickListener {
 
         join!!.setOnClickListener {
             generalinterface.goToNewChatRooms()
-            bottomSheetDialog.hide()
         }
 
         search!!.setOnClickListener {

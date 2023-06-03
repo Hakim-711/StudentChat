@@ -14,7 +14,7 @@
             android:layout_width="40dp"
             android:layout_height="5dp"
             android:layout_gravity="center"
-            android:background="@drawable/round_button"
+            android:background="@drawable/opt_item"
             android:layout_marginTop="10dp"
             />
 
@@ -66,7 +66,7 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/logo"
+                                android:src="@drawable/chat_psut"
                                 android:layout_centerVertical="true"
                                 android:layout_centerHorizontal="true"
                                 />
@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
                         android:layout_marginBottom="10dp"
-                        android:backgroundTint="@color/primary"
+                        android:backgroundTint="@android:color/holo_orange_light"
                         android:text="Add"
                         android:padding="15dp"
                         />
